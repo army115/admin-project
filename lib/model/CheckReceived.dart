@@ -1,0 +1,154 @@
+class CheckReceived {
+  bool ok;
+  List<Check> check;
+
+  CheckReceived({this.ok, this.check});
+
+  CheckReceived.fromJson(Map<String, dynamic> json) {
+    ok = json['ok'];
+    if (json['check'] != null) {
+      check = new List<Check>();
+      json['check'].forEach((v) {
+        check.add(new Check.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ok'] = this.ok;
+    if (this.check != null) {
+      data['check'] = this.check.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Check {
+  int checkId;
+  int checkNum;
+  String checkDate;
+  String checkTime;
+  int orId;
+  int psId;
+  String orDate;
+  String orTime;
+  int orNum;
+  String orDetail;
+  String orOffice;
+  int orStatus;
+  double orLat;
+  double orLng;
+  String orAddress;
+  int uId;
+  String psUser;
+  String psPass;
+  String psName;
+  String psLastname;
+  String psAddress;
+  String psEmail;
+  String psTel;
+  String uUser;
+  String uPass;
+  String uName;
+  String uLastname;
+  String uTel;
+  String uEmail;
+
+  Check(
+      {this.checkId,
+      this.checkNum,
+      this.checkDate,
+      this.checkTime,
+      this.orId,
+      this.psId,
+      this.orDate,
+      this.orTime,
+      this.orNum,
+      this.orDetail,
+      this.orStatus,
+      this.orLat,
+      this.orLng,
+      this.orAddress,
+      this.orOffice,
+      this.uId,
+      this.psUser,
+      this.psPass,
+      this.psName,
+      this.psLastname,
+      this.psAddress,
+      this.psEmail,
+      this.psTel,
+      this.uUser,
+      this.uPass,
+      this.uName,
+      this.uLastname,
+      this.uTel,
+      this.uEmail});
+
+  Check.fromJson(Map<String, dynamic> json) {
+    checkId = json['check_id'];
+    checkNum = json['check_num'];
+    checkDate = json['check_date'];
+    checkTime = json['check_time'];
+    orId = json['or_id'];
+    psId = json['ps_id'];
+    orDate = json['or_date'];
+    orTime = json['or_time'];
+    orNum = json['or_num'];
+    orDetail = json['or_detail'];
+    orStatus = json['or_status'];
+    orLat = json['or_lat'];
+    orLng = json['or_lng'];
+    orAddress = json['or_address'];
+    orOffice = json['or_office'];
+    uId = json['u_id'];
+    psUser = json['ps_user'];
+    psPass = json['ps_pass'];
+    psName = json['ps_name'];
+    psLastname = json['ps_lastname'];
+    psAddress = json['ps_address'];
+    psEmail = json['ps_email'];
+    psTel = json['ps_tel'];
+    uUser = json['u_user'];
+    uPass = json['u_pass'];
+    uName = json['u_name'];
+    uLastname = json['u_lastname'];
+    uTel = json['u_tel'];
+    uEmail = json['u_email'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['check_id'] = this.checkId;
+    data['check_num'] = this.checkNum;
+    data['check_date'] = this.checkDate;
+    data['check_time'] = this.checkTime;
+    data['or_id'] = this.orId;
+    data['ps_id'] = this.psId;
+    data['or_date'] = this.orDate;
+    data['or_time'] = this.orTime;
+    data['or_num'] = this.orNum;
+    data['or_detail'] = this.orDetail;
+    data['or_status'] = this.orStatus;
+    data['or_lat'] = this.orLat;
+    data['or_lng'] = this.orLng;
+    data['or_address'] = this.orAddress;
+    data['or_office'] = this.orOffice;
+    data['u_id'] = this.uId;
+    data['ps_user'] = this.psUser;
+    data['ps_pass'] = this.psPass;
+    data['ps_name'] = this.psName;
+    data['ps_lastname'] = this.psLastname;
+    data['ps_address'] = this.psAddress;
+    data['ps_email'] = this.psEmail;
+    data['ps_tel'] = this.psTel;
+    data['u_user'] = this.uUser;
+    data['u_pass'] = this.uPass;
+    data['u_name'] = this.uName;
+    data['u_lastname'] = this.uLastname;
+    data['u_tel'] = this.uTel;
+    data['u_email'] = this.uEmail;
+    return data;
+  }
+}
