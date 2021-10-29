@@ -467,7 +467,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
       width: double.infinity,
       height: 45,
       child: RaisedButton(
-        child: Text('ตรวจเลขพัสดุ', style: TextStyle(fontSize: 20)),
+        child: Text('ดูเลขพัสดุ', style: TextStyle(fontSize: 20)),
         color: Colors.amber,
         onPressed: () {
           Navigator.pushNamed(context, '/track', arguments: {

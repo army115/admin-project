@@ -109,7 +109,7 @@ class _TrackState extends State<Track> {
             children: <Widget>[
               Container(
                 color: Colors.grey[300],
-                padding: EdgeInsets.only(top: 120),
+                padding: EdgeInsets.only(top: 110),
                 height: MediaQuery.of(context).size.height,
                 width: double.infinity,
                 child: list(),
@@ -197,27 +197,34 @@ class _TrackState extends State<Track> {
 
   Widget list() {
     return Container(
-      child: ListView.builder(
-        itemCount: save.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: Column(
-              children: [
-                ListTile(
-                  // leading: Image.asset('assets/images/ps01.png'),
-                  title: Text(
-                    'ชื่อผู้รับ : ${save[index].trackName}\nเลขพัสดุ : ${save[index].trackNum}',
-                  ),
-                  subtitle: Text(
-                    'ค่าส่งพัสดุ : ${save[index].trackSale}',
-                  ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: save.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                      // leading: Image.asset('assets/images/ps01.png'),
+                      title: Text(
+                        'ชื่อผู้รับ : ${save[index].trackName}\nเลขพัสดุ : ${save[index].trackNum}',
+                      ),
+                      subtitle: Text(
+                        'ค่าส่งพัสดุ : ${save[index].trackSale}',
+                      ),
+                      trailing: Image.asset('assets/images/order.png'),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          );
-        },
+              ),
+              shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            );
+          },
+        ),
       ),
     );
   }

@@ -153,7 +153,7 @@ class _ChangeStatusState extends State<ChangeStatus> {
     setState(() {
       _orlat = position.latitude;
       _orlng = position.longitude;
-      load = false;
+      // load = false;
     });
     print('lat = $_orlat, lng = $_orlng, load = $load');
   }
@@ -175,6 +175,7 @@ class _ChangeStatusState extends State<ChangeStatus> {
         Marker(
           markerId: MarkerId('id'),
           position: LatLng(_orlat, _orlng),
+          infoWindow: InfoWindow(title: '$_orlat, $_orlng'),
         ),
       );
     });

@@ -95,7 +95,7 @@ class _OrderDetailState extends State<OrderDetail> {
     setState(() {
       _orlat = position.latitude;
       _orlng = position.longitude;
-      load = false;
+      // load = false;
     });
     print('lat = $_orlat, lng = $_orlng, load = $load');
   }
@@ -117,6 +117,7 @@ class _OrderDetailState extends State<OrderDetail> {
         Marker(
           markerId: MarkerId('id'),
           position: LatLng(_orlat, _orlng),
+          infoWindow: InfoWindow(title: '$_orlat, $_orlng'),
         ),
       );
     });

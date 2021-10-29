@@ -15,11 +15,16 @@ class _AddPersonState extends State<AddPerson> {
   final _formkey = GlobalKey<FormState>();
   final _psUser = TextEditingController();
   final _psPass = TextEditingController();
+  final _conpass = TextEditingController();
   final _psName = TextEditingController();
   final _psLastname = TextEditingController();
   final _psAddress = TextEditingController();
   final _psTel = TextEditingController();
   final _psEmail = TextEditingController();
+
+  bool redEyepass = true;
+  bool redEyecon = true;
+  var confirmPass;
 
   //connect server api
   void _addperson(Map<String, dynamic> values) async {
@@ -30,6 +35,7 @@ class _AddPersonState extends State<AddPerson> {
 
     if (response.statusCode == 200) {
       print('Add Success');
+      _showSnack();
       Navigator.pop(context, true);
     } else {
       print('Add not Success');
@@ -77,6 +83,8 @@ class _AddPersonState extends State<AddPerson> {
                       SizedBox(height: 10),
                       password(),
                       SizedBox(height: 10),
+                      conpass(),
+                      SizedBox(height: 10),
                       psname(),
                       SizedBox(height: 10),
                       pslastname(),
@@ -84,18 +92,18 @@ class _AddPersonState extends State<AddPerson> {
                       adress(),
                       SizedBox(height: 10),
                       phone(),
-                      SizedBox(height: 10),
+                      SizedBox(height: 5),
                       email(),
                       SizedBox(height: 30),
                     ],
                   ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          btncancel(),
-                          btnSubmit(),
-                        ],
-                      )
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      btncancel(),
+                      btnSubmit(),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -126,20 +134,79 @@ class _AddPersonState extends State<AddPerson> {
   Widget password() {
     return TextFormField(
       controller: _psPass,
+      obscureText: redEyepass,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
         labelText: 'รหัสผ่าน',
         hintText: 'กรอกรหัสผ่าน อย่างน้อย 8 ตัว',
         icon: Icon(Icons.vpn_key, size: 35),
+        suffixIcon: IconButton(
+          onPressed: () {
+            setState(() {
+              redEyepass = !redEyepass;
+            });
+          },
+          icon: redEyepass
+              ? Icon(
+                  Icons.visibility,
+                  // color: MyConstant.dark,
+                )
+              : Icon(
+                  Icons.visibility_off,
+                  // color: MyConstant.dark,
+                ),
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
       ),
       validator: (values) {
+        confirmPass = values;
         if (values.isEmpty) {
           return 'กรุณากรอกรหัสผ่าน';
         } else if (values.length < 8) {
           return "รหัสผ่านอย่างน้อย 8 ตัว";
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
+  Widget conpass() {
+    return TextFormField(
+      controller: _conpass,
+      obscureText: redEyecon,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
+        labelText: 'ยืนยันรหัสผ่าน',
+        hintText: 'กรุณากรอกรหัสผ่านให้ตรงกัน',
+        icon: Icon(Icons.vpn_key_outlined, size: 35),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        suffixIcon: IconButton(
+          onPressed: () {
+            setState(() {
+              redEyecon = !redEyecon;
+            });
+          },
+          icon: redEyecon
+              ? Icon(
+                  Icons.visibility,
+                  // color: MyConstant.dark,
+                )
+              : Icon(
+                  Icons.visibility_off,
+                  // color: MyConstant.dark,
+                ),
+        ),
+      ),
+      validator: (values) {
+        if (values.isEmpty) {
+          return 'กรุณากรอกรหัสผ่าน';
+        } else if (values != confirmPass) {
+          return "รหัสผ่านไม่ตรงกัน";
         } else {
           return null;
         }
@@ -282,8 +349,8 @@ class _AddPersonState extends State<AddPerson> {
             print(_psEmail.text);
             print(_psTel.text);
             // print(valuse);
-
             _addperson(valuse);
+            // Navigator.pop(context,);
           }
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -291,6 +358,38 @@ class _AddPersonState extends State<AddPerson> {
       ),
     );
   }
+
+    void _showSnack() => ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          
+          // action: SnackBarAction(
+          //   label: 'Action',
+          //   onPressed: () {
+          //     // Code to execute.
+          //   },
+          // ),
+          content: Row(
+            children: [
+              Icon(Icons.check,
+              color: Colors.white,
+              size: 30.0,),
+              Expanded(
+                child: Text('เพิ่มข้อมูลพนักงานรับส่งสำเร็จ'),
+              ),
+            ],
+          ),
+          duration: const Duration(milliseconds: 1500),
+          width: 350, // Width of the SnackBar.
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0, // Inner padding for SnackBar content.
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+        ),
+      );
 
   Widget btncancel() {
     return SizedBox(
